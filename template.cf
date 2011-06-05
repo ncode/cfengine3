@@ -1,0 +1,46 @@
+bundle agent f_template(template_file, destination_file, service) {
+
+    vars:
+        "repository" string => "/var/cfengine/repository";
+
+    classes:
+        "service" expression => isvariable(service);
+        "splited" expression => regextract(".*/(.+)", "$(template_file)", "splited" );
+
+    files:
+        splited::
+            "$(destination_file)"
+                perms => mog("0644","root","root"),
+                copy_from => local_cp("/var/cache/cfengine3/cache/$(splited[1])"),
+                repository => "$(repository)/$(destination_file)",
+                classes => if_repaired("sync_template"),
+                action => immediate;
+
+            "/var/cache/cfengine3/templates/$(splited[1])"
+                perms => mog("0644","root","root"),
+                copy_from => secure_cp("$(template_file)","$(police_host)"),
+                repository => "$(repository)/var/cache/cfengine3/templates/$(splited[1])",
+                classes => if_repaired("sync_template"),
+                action => immediate;
+
+            "/var/cache/cfengine3/cache/$(splited[1])"
+                perms => mog("0644","root","root"),
+                create => "true",
+                edit_line => expand_template("/var/cache/cfengine3/templates/$(splited[1])"),
+                repository => "$(repository)/var/cache/cfengine3/cache/$(splited[1])",
+                edit_defaults => empty,
+                action => if_elapsed("5");
+
+        sync_template::
+            "$(destination_file)"
+                perms => mog("0644","root","root"),
+                copy_from => local_cp("/var/cache/cfengine3/cache/$(splited[1])"),
+                repository => "$(repository)/$(destination_file)",
+                action => immediate;
+
+    commands:
+        sync_template.service::
+            "$(service) restart";
+
+
+}
