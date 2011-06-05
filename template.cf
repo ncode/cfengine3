@@ -42,5 +42,4 @@ bundle agent f_template(template_file, destination_file, service) {
         sync_template.service::
             "$(service) restart";
 
-
 }
