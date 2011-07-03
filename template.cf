@@ -1,30 +1,30 @@
-bundle agent f_template(template_file, destination_file, service) {
+bundle agent f_template(template_file, destination_file, service, mode) {
 
     vars:
         "repository" string => "/var/cfengine/repository";
 
     classes:
-        "service" expression => isvariable(service);
+        "service" expression => isplain("/etc/init.d/$(service)");
         "splited" expression => regextract(".*/(.+)", "$(template_file)", "splited" );
 
     files:
         splited::
             "$(destination_file)"
-                perms => mog("0644","root","root"),
+                perms => mog("$(mode)","root","root"),
                 copy_from => local_cp("/var/cache/cfengine3/cache/$(splited[1])"),
                 repository => "$(repository)/$(destination_file)",
                 classes => if_repaired("sync_template"),
                 action => immediate;
 
             "/var/cache/cfengine3/templates/$(splited[1])"
-                perms => mog("0644","root","root"),
+                perms => mog("$(mode)","root","root"),
                 copy_from => secure_cp("$(template_file)","$(police_host)"),
                 repository => "$(repository)/var/cache/cfengine3/templates/$(splited[1])",
                 classes => if_repaired("sync_template"),
                 action => immediate;
 
             "/var/cache/cfengine3/cache/$(splited[1])"
-                perms => mog("0644","root","root"),
+                perms => mog("$(mode)","root","root"),
                 create => "true",
                 edit_line => expand_template("/var/cache/cfengine3/templates/$(splited[1])"),
                 repository => "$(repository)/var/cache/cfengine3/cache/$(splited[1])",
@@ -33,13 +33,13 @@ bundle agent f_template(template_file, destination_file, service) {
 
         sync_template::
             "$(destination_file)"
-                perms => mog("0644","root","root"),
+                perms => mog("$(mode)","root","root"),
                 copy_from => local_cp("/var/cache/cfengine3/cache/$(splited[1])"),
                 repository => "$(repository)/$(destination_file)",
                 action => immediate;
 
     commands:
         sync_template.service::
-            "$(service) restart";
+            "/etc/init.d/$(service) restart";
 
 }
