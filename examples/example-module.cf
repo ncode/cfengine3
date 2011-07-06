@@ -8,7 +8,7 @@ bundle agent load {
 
     reports:
         system_users::
-            "Your machine has $(get_users.count) users in /etc/passwd";
+            "This machine has $(get_users.count) users in /etc/passwd";
 }
 
 bundle agent run {
