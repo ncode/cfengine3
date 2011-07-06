@@ -4,7 +4,8 @@ A simple way to extend your cfengine3 using python
 
 ## Requirements:
 
-* Python :D
+* Python
+* CFengine3 
 
 ## Install:
 
@@ -66,3 +67,5 @@ A simple way to extend your cfengine3 using python
     R: user: bin
     R: user: sys
     ....
+
+    \o/
