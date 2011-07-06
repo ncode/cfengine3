@@ -68,4 +68,4 @@ A simple way to extend your cfengine3 using python
     R: user: sys
     ....
 
-    \o/
+# \o/
