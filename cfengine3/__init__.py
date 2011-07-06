@@ -22,8 +22,8 @@ class protocol(object):
         print "=%s=%s" % (name, value)
 
     def list(self, name, value):
-        if not isinstance(name, list):
+        if not isinstance(name, str):
             raise TypeError('Name must be a string')
-        if not isinstance(value, str):
+        if not isinstance(value, list):
             raise TypeError('Value must be a list')
         print '@%s= { "%s" }' % (name, '", "'.join(value))
