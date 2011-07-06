@@ -5,7 +5,7 @@ A simple way to extend your cfengine3 using python
 ## Requirements:
 
 * Python
-* CFengine3 
+* CFEngine3 
 
 ## Install:
 
