@@ -41,7 +41,7 @@ A simple way to extend your cfengine3 using python
     
         reports:
             system_users::
-                "Your machine has $(get_users.count) users in /etc/passwd";
+                "This machine has $(get_users.count) users in /etc/passwd";
     }
     
     bundle agent run {
@@ -60,7 +60,7 @@ A simple way to extend your cfengine3 using python
      -> Executing '/var/cfengine/modules/get_users' ...(timeout=-678,owner=-1,group=-1)
     M "/var/cfengine/modules/get_users":
      -> Completed execution of /var/cfengine/modules/get_users
-    R: Your machine has 36 users in /etc/passwd
+    R: This machine has 36 users in /etc/passwd
     R: user: root
     R: user: daemon
     R: user: bin
