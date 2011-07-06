@@ -1,0 +1,21 @@
+body common control {
+    bundlesequence  => { "load", "run" };
+}
+
+bundle agent load {
+    commands:
+        "$(sys.workdir)/modules/get_users" module => "true";
+
+    reports:
+        system_users::
+            "Your machine has $(get_users.count) users in /etc/passwd";
+}
+
+bundle agent run {
+    vars:
+        "users" slist => { @(get_users.users) };
+
+    reports:
+        system_users::
+          "user: $(users)";
+}
