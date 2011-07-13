@@ -1,3 +1,9 @@
+python-cfengine (0.3-2) stable; urgency=low
+
+  * Fixing pyversions
+
+ -- Andre Ferraz <andre.ferraz@locaweb.com.br>  Wed, 13 Jul 2011 21:19:22 +0000
+
 python-cfengine (0.3) stable; urgency=low
 
   * Fixed setup.py
