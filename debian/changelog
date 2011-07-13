@@ -1,5 +1,5 @@
-python-cfengine (0.1) unstable; urgency=low
+python-cfengine (0.3) stable; urgency=low
 
-  * Initial Release.
+  * Fixed setup.py
 
- -- Andre Ferraz <andre.ferraz@locaweb.com.br>  Wed, 06 Jul 2011 03:48:15 +0000
+ -- Juliano Martinez <juliano.martinez@locaweb.com.br>  Wed, 13 Jul 2011 11:56:15 +0000
